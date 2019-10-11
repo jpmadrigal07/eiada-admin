@@ -8,11 +8,7 @@ const config = require("../config");
 const moment = require('moment');
 
 router.get("/", middleware.isLoggedOut, middleware.setToken, middleware.verifyToken, middleware.hasAccess('Administrator'), function (req, res) {
-    if (req.user.userRole === "Patient") {
-        res.redirect("/profile/dashboard");
-    } else if (req.user.userRole === "Specialist") {
-        res.redirect("/profile/announcement/lists");
-    }
+    res.redirect("/profile/dashboard");
 });
 
 router.get("/dashboard", middleware.isLoggedOut, middleware.setToken, middleware.verifyToken, middleware.hasAccess('Administrator'), function (req, res) {        
