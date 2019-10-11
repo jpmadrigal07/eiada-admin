@@ -4,9 +4,9 @@ const http = require('http');
 const bodyParser = require("body-parser");
 const methodOverride = require("method-override");
 const session = require('express-session');
-const redis = require('redis');
-const redisClient = redis.createClient();
-const redisStore = require('connect-redis')(session);
+// const redis = require('redis');
+// const redisClient = redis.createClient();
+// const redisStore = require('connect-redis')(session);
 const reload = require('reload');
 
 // REQUIRING ROUTES
