@@ -43,8 +43,8 @@ app.use(session({
 	secret: "Shh, its a secret!",
 	name: '_redisPractice',
 	resave: false,
-	saveUninitialized: true,
-	store: new redisStore({ host: 'localhost', port: 6379, client: redisClient, ttl: 86400 })
+	saveUninitialized: true
+	// store: new redisStore({ host: 'localhost', port: 6379, client: redisClient, ttl: 86400 })
 }));
 
 app.use("/", indexRoutes);
