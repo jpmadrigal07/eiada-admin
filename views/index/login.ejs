@@ -1,0 +1,45 @@
+<% include ../partials/index/header %>
+
+<div class="splash-container">
+    <div class="card ">
+        <div class="card-header text-center"><a href="/"><img class="logo-img" src="/images/logo_hangul_mabellise.png" alt="logo"></a><span class="splash-description">EIADA</span></div>
+        <div class="card-body">
+            <form>
+                <% include ../partials/message1 %>
+                <div class="form-group">
+                    <input class="form-control form-control-lg username" id="username" type="text" placeholder="Username" autofocus autocomplete="off">
+                </div>
+                <div class="form-group">
+                    <input class="form-control form-control-lg password" id="password" type="password" placeholder="Password">
+                </div>
+                <div class="form-group">
+                    <label class="custom-control custom-checkbox">
+                        <input class="custom-control-input" type="checkbox"><span class="custom-control-label">Remember Me</span>
+                    </label>
+                </div>
+                <button class="btn btn-primary btn-lg btn-block" type="button" id="submitButton" onclick="login()">Sign in</button>
+            </form>
+         </div>
+    </div>
+</div>
+
+<% include ../partials/index/topFooter %>
+<% include ../partials/index/middleFooter %>
+
+<script>
+    $('.username').keypress(function (e) {
+      if (e.which == 13) {
+        $('.password').focus();
+      }
+    });
+    $('.password').keypress(function (e) {
+      if (e.which == 13) {
+        login();
+      }
+    });
+</script>
+
+<script src="/operator/index/login.js"></script>
+
+<% include ../partials/index/bottomFooter %>
+  

@@ -1,0 +1,147 @@
+<% include ../../partials/profile/header %>
+<% include ../../partials/profile/navbar %>
+<% include ../../partials/profile/sidebar %>
+
+<div class="dashboard-ecommerce">
+    <div class="container-fluid dashboard-content ">
+        <!-- ============================================================== -->
+        <!-- pageheader  -->
+        <!-- ============================================================== -->
+        <div class="row">
+            <div class="col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12">
+                <div class="page-header">
+                    <h2 class="pageheader-title"><%= pageName %> </h2>
+                    <div class="page-breadcrumb">
+                        <nav aria-label="breadcrumb">
+                            <ol class="breadcrumb">
+                                <li class="breadcrumb-item"><a href="/profile/specialist/lists" class="breadcrumb-link"><%= pageName %></a></li>
+                                <li class="breadcrumb-item active" aria-current="page"><%= pageSubName %></li>
+                            </ol>
+                        </nav>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <!-- ============================================================== -->
+        <!-- end pageheader  -->
+        <!-- ============================================================== -->
+        <div class="ecommerce-widget">
+            <div class="row">
+                <div class="col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12">
+                    <div class="card">
+                        <div class="card-body">
+                            <div id="payment-history-list">
+                                <% if(withdrawRequest.length > 0) { %>
+                                <h3>Specialist: <strong><%= withdrawRequest[0].specialistID.firstName %> <%= withdrawRequest[0].specialistID.middleName.charAt(0) %>. <%= withdrawRequest[0].specialistID.lastName %></strong></h3>
+                                <% } %>
+                                <table class="table table-bordered">
+                                    <thead>
+                                        <tr>
+                                            <th scope="col">#</th>
+                                            <th scope="col">Amount</th>
+                                            <th scope="col">Account Name</th>
+                                            <th scope="col">Account Number</th>
+                                            <th scope="col">Date</th>
+                                            <th scope="col">Actions</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <% var counter = 0; %>
+                                        <% withdrawRequest.forEach(function(withdrawRequest) { %>
+                                        <% counter++; %>
+                                        <tr>
+                                            <th scope="row"><%= counter %></th>
+                                            <td><%= withdrawRequest.amount %> AED</td>
+                                            <td><%= withdrawRequest.cardID.cardHolderName %></td>
+                                            <td><%= withdrawRequest.cardID.cardNumber %></td>
+                                            <td><%= moment(withdrawRequest.createdAt).format( 'MMM DD, YYYY hh:mm A') %></td>
+                                            <td><% if(typeof withdrawRequest.approvedAt == 'undefined') { %> <a href="#" onclick="openApprove('<%= withdrawRequest._id %>','approve')">Approve</a> <% } else { %> <a href="#" onclick="openApprove('<%= withdrawRequest._id %>','disapprove')">Disapprove</a> <% } %> | <% if(typeof withdrawRequest.declinedAt == 'undefined') { %> <a href="#" onclick="openDecline('<%= withdrawRequest._id %>','decline')">Decline</a> <% } else { %> <span style="color: #cccccc;">Declined</span> <% } %> </td>
+                                        </tr>
+                                        <% }) %>
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="modal fade" id="approve" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"
+    aria-hidden="true">
+    <div class="modal-dialog modal-sm" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="exampleModalLabel">Approve withdrawal request</h5>
+                <a href="#" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </a>
+            </div>
+            <div class="modal-body">
+                <input type="hidden" id="approve-withdraw-request-id" />
+                <input type="hidden" id="approve-withdraw-request-status" />
+                <% include ../../partials/message1 %>
+                <p>Please note that before you approve a request, make sure you already send it to the specialist account.</p>
+            </div>
+            <div class="modal-footer">
+                <button class="btn btn-secondary" data-dismiss="modal">Close</button>
+                <button class="btn btn-primary" id="submit-button" onclick="approveWithdrawRequest()">Continue</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="modal fade" id="decline" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"
+    aria-hidden="true">
+    <div class="modal-dialog modal-sm" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="exampleModalLabel">Decline withdrawal request</h5>
+                <a href="#" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </a>
+            </div>
+            <div class="modal-body">
+                <input type="hidden" id="decline-withdraw-request-id" />
+                <% include ../../partials/message2 %>
+                <textarea class="form-control" id="decline-withdraw-request-reason" rows="3" placeholder="Provide reason..."></textarea>
+            </div>
+            <div class="modal-footer">
+                <button class="btn btn-secondary" data-dismiss="modal">Close</button>
+                <button class="btn btn-primary" id="submit-button" onclick="declineWithdrawRequest()">Decline</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+<% include ../../partials/profile/topFooter %>
+<% include ../../partials/profile/middleFooter %>
+
+<script>
+
+    function openApprove(withdrawRequestID, status) {
+        $('#approve').modal('show');
+        $('#approve-withdraw-request-id').val(withdrawRequestID);
+        $('#approve-withdraw-request-status').val(status);
+    }
+    function openDecline(withdrawRequestID, status) {
+        $('#decline').modal('show');
+        $('#decline-withdraw-request-id').val(withdrawRequestID);
+    }
+    $('#filter').on('change', function() {
+        window.location.href = '/profile/withdrawal-requests/'+this.value;
+    });
+    $(function () {
+        $('#datetimepicker').datetimepicker({
+            format: 'L'
+        });
+    });
+</script>
+
+<script src="/operator/profile/withdrawRequest/approve.js"></script>
+<script src="/operator/profile/withdrawRequest/decline.js"></script>
+
+
+<% include ../../partials/profile/bottomFooter %>

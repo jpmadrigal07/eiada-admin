@@ -1,0 +1,113 @@
+<% include ../../partials/profile/header %>
+<% include ../../partials/profile/navbar %>
+<% include ../../partials/profile/sidebar %>
+
+<div class="dashboard-ecommerce">
+    <div class="container-fluid dashboard-content ">
+        <!-- ============================================================== -->
+        <!-- pageheader  -->
+        <!-- ============================================================== -->
+        <div class="row">
+            <div class="col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12">
+                <div class="page-header">
+                    <h2 class="pageheader-title"><%= pageSubName %> </h2>
+                    <div class="page-breadcrumb">
+                        <nav aria-label="breadcrumb">
+                            <ol class="breadcrumb">
+                                <li class="breadcrumb-item"><a href="/profile/patient/lists" class="breadcrumb-link"><%= pageName %></a></li>
+                                <li class="breadcrumb-item active" aria-current="page"><%= pageSubName %></li>
+                            </ol>
+                        </nav>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <!-- ============================================================== -->
+        <!-- end pageheader  -->
+        <!-- ============================================================== -->
+        <div class="ecommerce-widget">
+                <div class="row">
+                    <div class="col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12">
+                        <div class="card">
+                            <div class="card-body">
+                                <div id="booking-history-list">
+                                    <% if(bookingAddresses.length > 0) { %>
+                                    <h3>Patient: <strong><%= bookingAddresses[0].userID.firstName %> <%= bookingAddresses[0].userID.middleName.charAt(0) %>. <%= bookingAddresses[0].userID.lastName %></strong></h3>
+                                    <% } %>
+                                    <table class="table table-bordered">
+                                        <thead>
+                                            <tr>
+                                                <th scope="col">#</th>
+                                                <th scope="col">Title</th>
+                                                <th scope="col">Coordinates</th>
+                                                <th scope="col">Address</th>
+                                                <th scope="col">Date Created</th>
+                                            </tr>
+                                        </thead>
+                                        <tbody>
+                                            <% var counter = 0; %>
+                                            <% bookingAddresses.forEach(function(bookingAddresses) { %>
+                                            <% counter++; %>
+                                            <tr>
+                                                <th scope="row"><%= counter %></th>
+                                                <td><%= bookingAddresses.title %></td>
+                                                <td><%= bookingAddresses.coordinates %></td>
+                                                <% 
+                                                var area = "";
+                                                var address = "";
+                                                var street = "";
+                                                var building = "";
+                                                var floor = "";
+                                                var additionalDirection = "";
+                                                var mobileNumber = "";
+
+                                                if(typeof bookingAddresses.area !== 'undefined') {
+                                                    area = bookingAddresses.area;
+                                                }
+                                                if(typeof bookingAddresses.address !== 'undefined') {
+                                                    address = bookingAddresses.address;
+                                                }
+                                                if(typeof bookingAddresses.street !== 'undefined') {
+                                                    street = bookingAddresses.street;
+                                                }
+                                                if(typeof bookingAddresses.building !== 'undefined') {
+                                                    building = bookingAddresses.building;
+                                                }
+                                                if(typeof bookingAddresses.floor !== 'undefined') {
+                                                    floor = bookingAddresses.floor;
+                                                }
+                                                if(typeof bookingAddresses.additionalDirection !== 'undefined') {
+                                                    additionalDirection = bookingAddresses.additionalDirection;
+                                                }
+                                                if(typeof bookingAddresses.mobileNumber !== 'undefined') {
+                                                    mobileNumber = bookingAddresses.mobileNumber;
+                                                }
+                                                %>
+                                                <td><%= bookingAddresses.area %> <%= bookingAddresses.address %> <%= bookingAddresses.street %> <%= bookingAddresses.building %> <%= bookingAddresses.floor %> <%= bookingAddresses.additionalDirection %> <%= bookingAddresses.mobileNumber %></td>
+                                                <td><%= moment(bookingAddresses.createdAt).format( 'MMM DD, YYYY hh:mm A') %></td>
+                                            </tr>
+                                            <% }) %>
+                                        </tbody>
+                                    </table>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+    </div>
+</div>
+
+<% include ../../partials/profile/topFooter %>
+<% include ../../partials/profile/middleFooter %>
+
+<script>
+    $(function () {
+        $('#datetimepicker').datetimepicker({
+            format: 'L'
+        });
+    });
+
+</script>
+
+<% include ../../partials/profile/bottomFooter %>

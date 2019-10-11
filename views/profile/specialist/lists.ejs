@@ -1,0 +1,597 @@
+<% include ../../partials/profile/header %>
+<% include ../../partials/profile/navbar %>
+<% include ../../partials/profile/sidebar %>
+
+<div class="dashboard-ecommerce">
+    <div class="container-fluid dashboard-content ">
+        <!-- ============================================================== -->
+        <!-- pageheader  -->
+        <!-- ============================================================== -->
+        <div class="row">
+            <div class="col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12">
+                <div class="page-header">
+                    <h2 class="pageheader-title"><%= pageName %> </h2>
+                    <div class="page-breadcrumb">
+                        <nav aria-label="breadcrumb">
+                            <ol class="breadcrumb">
+                                <li class="breadcrumb-item"><a href="/profile/specialist/lists"
+                                        class="breadcrumb-link"><%= pageName %></a></li>
+                            </ol>
+                        </nav>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <!-- ============================================================== -->
+        <!-- end pageheader  -->
+        <!-- ============================================================== -->
+        <div class="ecommerce-widget">
+            <div class="row">
+                <div class="col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12">
+                    <div class="card">
+                        <div class="card-body">
+                            <div class="input-group mb-3">
+                                <input type="text" class="form-control form-control-md" id="search" placeholder="Search name, username or email..." value="<%= filter %>">
+                                <div class="input-group-append">
+                                    <button type="button" class="btn btn-primary" onclick="search()"><i class="fas fa-search"></i></button>
+                                </div>
+                            </div>
+                            <div id="payment-history-list">
+                                <table class="table table-bordered">
+                                    <thead>
+                                        <tr>
+                                            <th scope="col">#</th>
+                                            <th scope="col">Full Name</th>
+                                            <th scope="col">Username</th>
+                                            <th scope="col">Email</th>
+                                            <th scope="col">Role</th>
+                                            <th scope="col">Actions</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <% var counter = 0; %>
+                                        <% specialist.forEach(function(specialist) { %>
+                                        <% counter++; %>
+                                        <tr>
+                                            <th scope="row"><%= counter %></th>
+                                            <td><%= specialist.firstName %> <%= specialist.middleName.charAt(0) %>. <%= specialist.lastName %></td>
+                                            <td><%= specialist.username %></td>
+                                            <td><%= specialist.email %></td>
+                                            <td><%= specialist.roles %></td>
+                                            <% 
+                                            var createdAt = moment(specialist.createdAt).format( 'MMM DD, YYYY hh:mm A');  
+                                            var birthDate = moment(specialist.birthDate).format( 'MMM DD, YYYY');
+                                            var gender = specialist.gender;  
+
+                                            var consultationFee = "";
+                                            var university = "";
+                                            var associatedHospital = "";
+                                            var experience = "";
+                                            var nameTitle = "";
+                                            var licenseNumber = "";
+                                            var about = "";
+                                            var languages = "";
+                                            var passportURL = "";
+                                            var passportID = "";  
+                                            var emiratesURL = "";
+                                            var emiratesID = "";  
+                                            var insuranceURL = "";
+                                            var insuranceID = "";  
+                                            var monday = "";
+                                            var mondayCount = "";
+                                            var tuesday = "";
+                                            var tuesdayCount = "";
+                                            var wednesday = "";
+                                            var wednesdayCount = "";
+                                            var thursday = "";
+                                            var thursdayCount = "";
+                                            var friday = "";
+                                            var fridayCount = "";
+                                            var saturday = "";
+                                            var saturdayCount = "";
+                                            var sunday = "";
+                                            var sundayCount = "";
+                                            %>
+                                            <%
+                                            if(typeof specialist.specialist.info !== 'undefined') {
+                                                consultationFee = specialist.specialist.info.consultationFee;
+                                                university = specialist.specialist.info.university;
+                                                associatedHospital = specialist.specialist.info.associatedHospital;
+                                                experience = specialist.specialist.info.experience;
+                                                nameTitle = specialist.specialist.info.nameTitle;
+                                                licenseNumber = specialist.specialist.info.licenseNumber;
+                                                about = specialist.specialist.info.about;
+                                                languages = specialist.specialist.info.languages;
+                                            }
+                                            if(typeof specialist.identification !== 'undefined') {
+                                                if(typeof specialist.identification.emirates !== 'undefined') {
+                                                    emiratesURL = specialist.identification.emirates.url;
+                                                    emiratesID = specialist.identification.emirates.number;  
+                                                }
+                                                if(typeof specialist.identification.insurance !== 'undefined') {
+                                                    insuranceURL = specialist.identification.insurance.url;
+                                                    insuranceID = specialist.identification.insurance.number;  
+                                                }
+                                                if(typeof specialist.identification.passport !== 'undefined') {
+                                                    passportURL = specialist.identification.passport.url;
+                                                    passportID = specialist.identification.passport.number;  
+                                                }
+                                            }
+                                            if(typeof specialist.specialist.weeklySchedule !== 'undefined') {
+                                                if(typeof specialist.specialist.weeklySchedule.monday !== 'undefined') {
+                                                    monday = specialist.specialist.weeklySchedule.monday.status;
+                                                    mondayCount = specialist.specialist.weeklySchedule.monday.bookingCount;
+                                                }
+                                                if(typeof specialist.specialist.weeklySchedule.tuesday !== 'undefined') {
+                                                    tuesday = specialist.specialist.weeklySchedule.tuesday.status;
+                                                    tuesdayCount = specialist.specialist.weeklySchedule.tuesday.bookingCount;
+                                                }
+                                                if(typeof specialist.specialist.weeklySchedule.wednesday !== 'undefined') {
+                                                    wednesday = specialist.specialist.weeklySchedule.wednesday.status;
+                                                    wednesdayCount = specialist.specialist.weeklySchedule.wednesday.bookingCount;
+                                                }
+                                                if(typeof specialist.specialist.weeklySchedule.thursday !== 'undefined') {
+                                                    thursday = specialist.specialist.weeklySchedule.thursday.status;
+                                                    thursdayCount = specialist.specialist.weeklySchedule.thursday.bookingCount;
+                                                }
+                                                if(typeof specialist.specialist.weeklySchedule.friday !== 'undefined') {
+                                                    friday = specialist.specialist.weeklySchedule.friday.status;
+                                                    fridayCount = specialist.specialist.weeklySchedule.friday.bookingCount;
+                                                }
+                                                if(typeof specialist.specialist.weeklySchedule.saturday !== 'undefined') {
+                                                    saturday = specialist.specialist.weeklySchedule.saturday.status;
+                                                    saturdayCount = specialist.specialist.weeklySchedule.saturday.bookingCount;
+                                                }
+                                                if(typeof specialist.specialist.weeklySchedule.sunday !== 'undefined') {
+                                                    sunday = specialist.specialist.weeklySchedule.sunday.status;
+                                                    sundayCount = specialist.specialist.weeklySchedule.sunday.bookingCount;
+                                                }
+                                            }
+                                            %>
+                                            <td><a href="#" onclick='openMoreInfo("<%= gender %>","<%= birthDate %>","<%= createdAt %>","<%= consultationFee %>", "<%= university %>", "<%= associatedHospital %>", "<%= experience %>", "<%= nameTitle %>", "<%= licenseNumber %>", "<%= about %>", "<%= languages %>")'>More Info</a> | <a href="#" onclick="openSchedule('<%= monday %>', '<%= mondayCount %>', '<%= tuesday %>',  '<%= tuesdayCount %>', '<%= wednesday %>', '<%= wednesdayCount %>', '<%= thursday %>', '<%= thursdayCount %>', '<%= friday %>', '<%= fridayCount %>',  '<%= saturday %>', '<%= saturdayCount %>', '<%= sunday %>', '<%= sundayCount %>')">Schedule</a> | <a href="/profile/specialist/expertise/<%= specialist._id %>">Expertise</a> | <a href="/profile/specialist/bookings/<%= specialist._id %>">Bookings</a> | <a href="/profile/specialist/withdrawal-requests/<%= specialist._id %>">Withdraw Requests</a> | <a href="#" onclick="openIdentification('<%= passportURL %>','<%= passportID %>','<%= emiratesURL %>','<%= emiratesID %>','<%= insuranceURL %>','<%= insuranceID %>')">View I.D's</a> | <% if(typeof specialist.approvedAt == 'undefined') { %><a href="#" onclick="openApprove('<%= specialist._id %>', 'approve')">Approve</a> <% } else { %> <a href="#" onclick="openApprove('<%= specialist._id %>', 'disapprove')">Disapprove</a> <% } %> | <a href="#" onclick="openEditspecialist('<%= specialist._id %>','<%= specialist.firstName %>','<%= specialist.middleName %>','<%= specialist.lastName %>','<%= specialist.email %>','<%= specialist.username %>','<%= specialist.password %>','<%= specialist.gender %>','<%= birthDate %>','<%= specialist.roles %>')">Edit</a> | <% if(typeof specialist.blockedAt == 'undefined') { %><a href="#" onclick="openBlock('<%= specialist._id %>', 'block')">Block</a> <% } else { %> <a href="#" onclick="openBlock('<%= specialist._id %>', 'unblock')">Unblock</a> <% } %> </td>
+                                        </tr>
+                                        <% }) %>
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<% include ../../partials/profile/topFooter %>
+<% include ../../partials/profile/middleFooter %>
+
+<div class="modal fade" id="indentification" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"
+    aria-hidden="true">
+    <div class="modal-dialog modal-lg" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="exampleModalLabel">Indentification</h5>
+                <a href="#" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </a>
+            </div>
+            <div class="modal-body">
+                <div class="row">
+                    <div class="col-xl-4 col-lg-12 col-md-12 col-sm-4 col-12">
+                            <h3>Passport</h3>
+                            <span id="passport-image"></span>
+                            <span id="passport-id"></span>
+                    </div>
+                    <div class="col-xl-4 col-lg-12 col-md-12 col-sm-4 col-12">
+                            <h3>Emirates</h3>
+                            <span id="emirates-image"></span>
+                            <span id="emirates-id"></span>
+                    </div>
+                    <div class="col-xl-4 col-lg-12 col-md-12 col-sm-4 col-12">
+                            <h3>Insurance</h3>
+                            <span id="insurance-image"></span>
+                            <span id="insurance-id"></span>
+                    </div>
+                </div>
+            </div>
+            <div class="modal-footer">
+                <a href="#" class="btn btn-secondary" data-dismiss="modal">Close</a>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="modal fade" id="block" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"
+    aria-hidden="true">
+    <div class="modal-dialog modal-sm" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="exampleModalLabel">Block specialist</h5>
+                <a href="#" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </a>
+            </div>
+            <div class="modal-body">
+                <input type="hidden" id="delete-specialist-id" />
+                <input type="hidden" id="delete-specialist-status" />
+                <% include ../../partials/message1 %>
+                <p>Are you sure with this?</p>
+            </div>
+            <div class="modal-footer">
+                <button class="btn btn-secondary" data-dismiss="modal">Close</button>
+                <button class="btn btn-primary" id="submit-button" onclick="blockSpecialist()">Yes</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="modal fade" id="approve" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"
+    aria-hidden="true">
+    <div class="modal-dialog modal-sm" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="exampleModalLabel">Approved specialist</h5>
+                <a href="#" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </a>
+            </div>
+            <div class="modal-body">
+                <input type="hidden" id="approve-specialist-id" />
+                <input type="hidden" id="approve-specialist-status" />
+                <% include ../../partials/message3 %>
+                <p>Are you sure with this?</p>
+            </div>
+            <div class="modal-footer">
+                <button class="btn btn-secondary" data-dismiss="modal">Close</button>
+                <button class="btn btn-primary" id="submit-button" onclick="approveSpecialist()">Yes</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="modal fade" id="edit" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"
+    aria-hidden="true">
+    <div class="modal-dialog modal-sm" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="exampleModalLabel">Edit specialist</h5>
+                <a href="#" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </a>
+            </div>
+            <div class="modal-body">
+                <input type="hidden" id="edit-specialist-id" />
+                <form>
+                    <% include ../../partials/message2 %>
+                    <div class="form-group">
+                        <label for="otherRequest">First Name</label>
+                        <input class="form-control form-control-md" type="text" id="edit-first-name"
+                            placeholder="">
+                    </div>
+                    <div class="form-group">
+                        <label for="otherRequest">Middle Name</label>
+                        <input class="form-control form-control-md" type="text" id="edit-middle-name"
+                            placeholder="">
+                    </div>
+                    <div class="form-group">
+                        <label for="otherRequest">Last Name</label>
+                        <input class="form-control form-control-md" type="text" id="edit-last-name"
+                            placeholder="">
+                    </div>
+                    <div class="form-group">
+                        <label for="otherRequest">Email</label>
+                        <input class="form-control form-control-md" type="email" id="edit-email"
+                            placeholder="">
+                    </div>
+                    <div class="form-group">
+                        <label for="otherRequest">Username</label>
+                        <input class="form-control form-control-md" type="text" id="edit-username"
+                            placeholder="">
+                    </div>
+                    <div class="form-group">
+                        <label for="otherRequest">Password</label>
+                        <input class="form-control form-control-md" type="password" id="edit-password"
+                            placeholder="">
+                    </div>
+                    <div class="form-group">
+                        <label for="category">Gender</label>
+                        <select class="form-control form-control-md" id="edit-gender">
+                            <option>-- Select --</option>
+                            <option>Male</option>
+                            <option>Female</option>
+                        </select>
+                    </div>
+                    <div class="form-group">
+                        <label for="datetimepicker">Birth Date</label>
+                        <input type="text" class="form-control form-control-md datetimepicker-input"
+                            id="datetimepicker" data-toggle="datetimepicker"
+                            data-target="#datetimepicker" autocomplete="off" />
+                    </div>
+                    <div class="form-group">
+                        <label for="category">Role</label>
+                        <select class="form-control form-control-md" id="edit-roles">
+                            <option>-- Select --</option>
+                            <option>Cardiologist</option>
+                            <option>Nurse</option>
+                            <option>Physical Therapist</option>
+                            <option>Veterinarian</option>
+                            <option>Caregiver</option>
+                            <option>Dermatologist</option>
+                            <option>Ent</option>
+                            <option>Family Medicine</option>
+                            <option>Gastroenterologist</option>
+                            <option>General Practitioner</option>
+                            <option>General Surgeon</option>
+                            <option>Internal Medicine</option>
+                            <option>Medtech</option>
+                            <option>Midwife</option>
+                            <option>Nephrologist</option>
+                            <option>Neurologist</option>
+                            <option>Nursing Aid</option>
+                            <option>Obstetricts Gynecology</option>
+                            <option>Ocupational Medicine</option>
+                            <option>Ophthalmologist</option>
+                            <option>Orthopedic Surgeon</option>
+                            <option>Pediatrician</option>
+                            <option>Phlebotomist</option>
+                            <option>Psychiatrist</option>
+                            <option>Pulmonologist</option>
+                            <option>Rehab Med</option>
+                            <option>Urologist</option>
+                        </select>
+                    </div>
+                </form>
+            </div>
+            <div class="modal-footer">
+                <button class="btn btn-secondary" data-dismiss="modal">Close</button>
+                <button class="btn btn-primary" id="edit-button" onclick="editSpecialist()">Update</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="modal fade" id="moreInfo" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"
+    aria-hidden="true">
+    <div class="modal-dialog modal-lg" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="exampleModalLabel">More Information</h5>
+                <a href="#" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </a>
+            </div>
+            <div class="modal-body">
+                <div class="row">
+                    <div class="col-xl-6 col-lg-12 col-md-6 col-sm-6 col-12">
+                            <h4>Gender</h4>
+                            <span id="gender"></span>
+                            <h4>Birth Date</h4>
+                            <span id="birth-date"></span>
+                            <h4>Registration Date</h4>
+                            <span id="registration-date"></span>
+                            <h4>Consultation Fee</h4>
+                            <span id="consultation-fee"></span>
+                            <h4>University</h4>
+                            <span id="university"></span>
+                            <h4>Associated Hospital</h4>
+                            <span id="associated-hospital"></span>
+                    </div>
+                    <div class="col-xl-6 col-lg-12 col-md-6 col-sm-6 col-12">
+                            <h4>Experience</h4>
+                            <span id="experience"></span>
+                            <h4>Title</h4>
+                            <span id="title"></span>
+                            <h4>License Number</h4>
+                            <span id="license-number"></span>
+                            <h4>About</h4>
+                            <span id="about"></span>
+                            <h4>Languages</h4>
+                            <span id="languages"></span>
+                    </div>
+                </div>
+            </div>
+            <div class="modal-footer">
+                <button class="btn btn-secondary" data-dismiss="modal">Close</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="modal fade" id="schedule" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"
+    aria-hidden="true">
+    <div class="modal-dialog modal-lg" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="exampleModalLabel">Schedule</h5>
+                <a href="#" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </a>
+            </div>
+            <div class="modal-body">
+                <div class="row">
+                    <div class="col-xl-6 col-lg-12 col-md-6 col-sm-6 col-12">
+                            <h4>Monday</h4>
+                            <span id="monday"></span>
+                            <h4>Tuesday</h4>
+                            <span id="tuesday"></span>
+                            <h4>Wednesday</h4>
+                            <span id="wednesday"></span>
+                            <h4>Thursday</h4>
+                            <span id="thursday"></span>
+                    </div>
+                    <div class="col-xl-6 col-lg-12 col-md-6 col-sm-6 col-12">
+                            <h4>Friday</h4>
+                            <span id="friday"></span>
+                            <h4>Saturday</h4>
+                            <span id="saturday"></span>
+                            <h4>Sunday</h4>
+                            <span id="sunday"></span>
+                    </div>
+                </div>
+            </div>
+            <div class="modal-footer">
+                <button class="btn btn-secondary" data-dismiss="modal">Close</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+<script>
+    function openIdentification(passportURL, passportID, emiratesURL, emiratesID, insuranceURL, insuranceID) {
+        $('#indentification').modal('show');
+
+        if(passportURL != "") {
+            $('#passport-image').html('<img src="http://localhost:5000/uploads/'+passportURL+'" class="img-fluid" /></br></br>');
+            $('#passport-id').html('Number: ' + passportID + '</br></br>');
+        } else {
+            $('#passport-image').html('Not set');
+            $('#passport-id').html('');
+        }
+
+        if(emiratesURL != "") {
+            $('#emirates-image').html('<img src="http://localhost:5000/uploads/'+emiratesURL+'" class="img-fluid" /></br></br>');
+            $('#emirates-id').html('Number: ' + emiratesID + '</br></br>');
+        } else {
+            $('#emirates-image').html('Not set');
+            $('#emirates-id').html('');
+        }
+
+        if(insuranceURL != "") {
+            $('#insurance-image').html('<img src="http://localhost:5000/uploads/'+insuranceURL+'" class="img-fluid" /></br></br>');
+            $('#insurance-id').html('Number: ' + insuranceID + '</br></br>');
+        }else {
+            $('#insurance-image').html('Not set');
+            $('#insurance-id').html('');
+        }
+
+    }
+    function openBlock(specialistID, status) {
+        $('#block').modal('show');
+        $('#delete-specialist-id').val(specialistID);
+        $('#delete-specialist-status').val(status);
+    }
+    function openApprove(specialistID, status) {
+        $('#approve').modal('show');
+        $('#approve-specialist-id').val(specialistID);
+        $('#approve-specialist-status').val(status);
+    }
+    function openMoreInfo(gender, birthDate, registrationDate, consultationFee, university, associatedHospital, experience, title, licenseNumber, about, languages) {
+        $('#moreInfo').modal('show');
+        $('#gender').html(gender+ "</br></br>");
+        $('#birth-date').html(birthDate+ "</br></br>");
+        $('#registration-date').html(registrationDate+ "</br></br>");
+
+        if(consultationFee != "") {
+            $('#consultation-fee').html(consultationFee+ "</br></br>");
+            $('#university').html(university+ "</br></br>");
+            $('#associated-hospital').html(associatedHospital+ "</br></br>");
+            $('#experience').html(experience+ "</br></br>");
+            $('#title').html(title+ "</br></br>");
+            $('#license-number').html(licenseNumber+ "</br></br>");
+            $('#about').html(about+ "</br></br>");
+            $('#languages').html(languages+ "</br></br>");
+        } else {
+            $('#consultation-fee').html("Not set</br></br>");
+            $('#university').html("Not set</br></br>");
+            $('#associated-hospital').html("Not set</br></br>");
+            $('#experience').html("Not set</br></br>");
+            $('#title').html("Not set</br></br>");
+            $('#license-number').html("Not set</br></br>");
+            $('#about').html("Not set</br></br>");
+            $('#languages').html("Not set</br></br>");
+        }
+    }
+    function openEditspecialist(specialistID, firstName, middleName, lastName, email, username, password, gender, birthDate, roles) {
+        $('#edit').modal('show');
+        $('#edit-specialist-id').val(specialistID);
+        $('#edit-first-name').val(firstName);
+        $('#edit-middle-name').val(middleName);
+        $('#edit-last-name').val(lastName);
+        $('#edit-email').val(email);
+        $('#edit-username').val(username);
+        $('#edit-password').val(password);
+        $('#edit-gender').val(gender);
+        $('#datetimepicker').val(birthDate);
+        $('#edit-roles').val(roles);
+    }
+    function openSchedule(monday, mondayCount, tuesday, tuesdayCount, wednesday, wednesdayCount, thursday, thursdayCount, friday, fridayCount, saturday, saturdayCount, sunday, sundayCount) {
+        $('#schedule').modal('show');
+
+        if(monday == "Available") {
+            $('#monday').html(monday+ " and can accommodate "+mondayCount+" patient.</br></br>");
+        } else if(tuesday == "Not Available") {
+            $('#monday').html(monday+ ".</br></br>");
+        } else {
+            $('#monday').html("Not set</br></br>");
+        }
+
+        if(tuesday == "Available") {
+            $('#tuesday').html(tuesday+ " and can accommodate "+tuesdayCount+" patient.</br></br>");
+        } else if(tuesday == "Not Available") {
+            $('#tuesday').html(tuesday+ ".</br></br>");
+        } else {
+            $('#tuesday').html("Not set</br></br>");
+        }
+
+        if(wednesday == "Available") {
+            $('#wednesday').html(wednesday+ " and can accommodate "+wednesdayCount+" patient.</br></br>");
+        } else if(wednesday == "Not Available") {
+            $('#wednesday').html(wednesday+ ".</br></br>");
+        } else {
+            $('#wednesday').html("Not set</br></br>");
+        }
+
+        if(thursday == "Available") {
+            $('#thursday').html(thursday+ " and can accommodate "+thursdayCount+" patient.</br></br>");
+        } else if(thursday == "Not Available") {
+            $('#thursday').html(thursday+ ".</br></br>");
+        } else {
+            $('#thursday').html("Not set</br></br>");
+        }
+
+        if(friday == "Available") {
+            $('#friday').html(friday+ " and can accommodate "+fridayCount+" patient.</br></br>");
+        } else if(friday == "Not Available") {
+            $('#friday').html(friday+ ".</br></br>");
+        } else {
+            $('#friday').html("Not set</br></br>");
+        }
+
+        if(saturday == "Available") {
+            $('#saturday').html(saturday+ " and can accommodate "+saturdayCount+" patient.</br></br>");
+        } else if(saturday == "Not Available") {
+            $('#saturday').html(saturday+ ".</br></br>");
+        } else {
+            $('#saturday').html("Not set</br></br>");
+        }
+
+        if(sunday == "Available") {
+            $('#sunday').html(sunday+ " and can accommodate "+sundayCount+" patient.</br></br>");
+        } else if(sunday == "Not Available") {
+            $('#sunday').html(sunday+ ".</br></br>");
+        } else {
+            $('#sunday').html("Not set</br></br>");
+        }
+    }
+    $("#search").on('keyup', function (e) {
+        if (e.keyCode === 13) {
+            // Do something
+            window.location.href = '/profile/specialist/lists/'+this.value;
+        }
+    });
+    function search() {
+        var query = $('#search').val();
+        window.location.href = '/profile/specialist/lists/'+query;
+    }
+    $(function () {
+        $('#datetimepicker').datetimepicker({
+            format: 'L'
+        });
+    });
+</script>
+
+<script src="/operator/profile/specialist/block.js"></script>
+<script src="/operator/profile/specialist/approve.js"></script>
+<script src="/operator/profile/specialist/edit.js"></script>
+
+<% include ../../partials/profile/bottomFooter %>

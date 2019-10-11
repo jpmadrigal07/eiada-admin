@@ -1,0 +1,590 @@
+<% include ../../partials/profile/header %>
+<% include ../../partials/profile/navbar %>
+<% include ../../partials/profile/sidebar %>
+
+<div class="dashboard-ecommerce">
+    <div class="container-fluid dashboard-content ">
+        <!-- ============================================================== -->
+        <!-- pageheader  -->
+        <!-- ============================================================== -->
+        <div class="row">
+            <div class="col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12">
+                <div class="page-header">
+                    <h2 class="pageheader-title"><%= pageSubName %> </h2>
+                    <div class="page-breadcrumb">
+                        <nav aria-label="breadcrumb">
+                            <ol class="breadcrumb">
+                                <li class="breadcrumb-item"><a href="/profile/specialist/lists" class="breadcrumb-link"><%= pageName %></a></li>
+                                <li class="breadcrumb-item active" aria-current="page"><%= pageSubName %></li>
+                            </ol>
+                        </nav>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <!-- ============================================================== -->
+        <!-- end pageheader  -->
+        <!-- ============================================================== -->
+        <div class="ecommerce-widget">
+                <div class="row">
+                    <div class="col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12">
+                        <div class="card">
+                            <div class="card-body">
+                                <div id="booking-history-list">
+                                    <% if(bookings.length > 0) { %>
+                                    <h3>Specialist: <strong><%= bookings[0].specialistID.firstName %> <%= bookings[0].specialistID.middleName.charAt(0) %>. <%= bookings[0].specialistID.lastName %></strong></h3>
+                                    <% } %>
+                                    <table class="table table-bordered">
+                                        <thead>
+                                            <tr>
+                                                <th scope="col">#</th>
+                                                <th scope="col">Patient</th>
+                                                <th scope="col">Date</th>
+                                                <th scope="col">Status</th>
+                                                <th scope="col">Actions</th>
+                                            </tr>
+                                        </thead>
+                                        <tbody>
+                                            <% var counter = 0; %>
+                                            <% bookings.forEach(function(bookings) { %>
+                                            <% counter++; %>
+                                            <tr>
+                                                <th scope="row"><%= counter %></th>
+                                                <td><%= bookings.patientID.firstName %> <%= bookings.patientID.middleName.charAt(0) %>. <%= bookings.patientID.lastName %></td>
+                                                <td><%= moment(bookings.createdAt).format( 'MMM DD, YYYY hh:mm A') %></td>
+                                                <td><% if(typeof bookings.reviewID == 'undefined' || typeof bookings.reportID == 'undefined') { %> Active <% } else { %> Done <% } %></td>
+                                                <% 
+                                                    var specialistMessage1 = "";
+                                                    var specialistMessage2 = ""; 
+                                                    var specialistMessage3 = ""; 
+                                                    var specialistMessage4 = ""; 
+                                                    var specialistMessage5 = ""; 
+                                                    var specialistMessage6 = ""; 
+                                                    var specialistMessage7 = ""; 
+                                                    var specialistMessage8 = ""; 
+                                                    var specialistMessage9 = ""; 
+                                                    var specialistMessage10 = ""; 
+                                                    var specialistMessage11 = ""; 
+                                                    var specialistMessage12 = ""; 
+                                                    var specialistMessage13 = "";  
+                                                %>
+                                                <% 
+                                                    var patientMessage1 = "";
+                                                    var patientMessage2 = ""; 
+                                                    var patientMessage3 = ""; 
+                                                    var patientMessage4 = ""; 
+                                                    var patientMessage5 = ""; 
+                                                    var patientMessage6 = ""; 
+                                                    var patientMessage7 = ""; 
+                                                    var patientMessage8 = ""; 
+                                                    var patientMessage9 = ""; 
+                                                    var patientMessage10 = ""; 
+                                                    var patientMessage11 = ""; 
+                                                    var patientMessage12 = ""; 
+                                                    var patientMessage13 = "";  
+                                                %>
+                                                <% 
+                                                    var date1 = "";
+                                                    var date2 = ""; 
+                                                    var date3 = ""; 
+                                                    var date4 = ""; 
+                                                    var date5 = ""; 
+                                                    var date6 = ""; 
+                                                    var date7 = ""; 
+                                                    var date8 = ""; 
+                                                    var date9 = ""; 
+                                                    var date10 = ""; 
+                                                    var date11 = ""; 
+                                                    var date12 = ""; 
+                                                    var date13 = "";  
+                                                %>
+                                                <% if(typeof bookings.scenario.message1 !== 'undefined') { %> <% specialistMessage1 = bookings.scenario.message1.description_specialist;  %> <% } %>
+                                                <% if(typeof bookings.scenario.message2 !== 'undefined') { %> <% specialistMessage2 = bookings.scenario.message2.description_specialist;  %> <% } %>
+                                                <% if(typeof bookings.scenario.message3 !== 'undefined') { %> <% specialistMessage3 = bookings.scenario.message3.description_specialist;  %> <% } %>
+                                                <% if(typeof bookings.scenario.message4 !== 'undefined') { %> <% specialistMessage4 = bookings.scenario.message4.description_specialist;  %> <% } %>
+                                                <% if(typeof bookings.scenario.message5 !== 'undefined') { %> <% specialistMessage5 = bookings.scenario.message5.description_specialist;  %> <% } %>
+                                                <% if(typeof bookings.scenario.message6 !== 'undefined') { %> <% specialistMessage6 = bookings.scenario.message6.description_specialist;  %> <% } %>
+                                                <% if(typeof bookings.scenario.message7 !== 'undefined') { %> <% specialistMessage7 = bookings.scenario.message7.description_specialist;  %> <% } %>
+                                                <% if(typeof bookings.scenario.message8 !== 'undefined') { %> <% specialistMessage8 = bookings.scenario.message8.description_specialist;  %> <% } %>
+                                                <% if(typeof bookings.scenario.message9 !== 'undefined') { %> <% specialistMessage9 = bookings.scenario.message9.description_specialist;  %> <% } %>
+                                                <% if(typeof bookings.scenario.message10 !== 'undefined') { %> <% specialistMessage10 = bookings.scenario.message10.description_specialist;  %> <% } %>
+                                                <% if(typeof bookings.scenario.message11 !== 'undefined') { %> <% specialistMessage11 = bookings.scenario.message11.description_specialist;  %> <% } %>
+                                                <% if(typeof bookings.scenario.message12 !== 'undefined') { %> <% specialistMessage12 = bookings.scenario.message12.description_specialist;  %> <% } %>
+                                                <% if(typeof bookings.scenario.message1 !== 'undefined') { %> <% patientMessage1 = bookings.scenario.message1.description_patient;  %> <% } %>
+                                                <% if(typeof bookings.scenario.message2 !== 'undefined') { %> <% patientMessage2 = bookings.scenario.message2.description_patient;  %> <% } %>
+                                                <% if(typeof bookings.scenario.message3 !== 'undefined') { %> <% patientMessage3 = bookings.scenario.message3.description_patient;  %> <% } %>
+                                                <% if(typeof bookings.scenario.message4 !== 'undefined') { %> <% patientMessage4 = bookings.scenario.message4.description_patient;  %> <% } %>
+                                                <% if(typeof bookings.scenario.message5 !== 'undefined') { %> <% patientMessage5 = bookings.scenario.message5.description_patient;  %> <% } %>
+                                                <% if(typeof bookings.scenario.message6 !== 'undefined') { %> <% patientMessage6 = bookings.scenario.message6.description_patient;  %> <% } %>
+                                                <% if(typeof bookings.scenario.message7 !== 'undefined') { %> <% patientMessage7 = bookings.scenario.message7.description_patient;  %> <% } %>
+                                                <% if(typeof bookings.scenario.message8 !== 'undefined') { %> <% patientMessage8 = bookings.scenario.message8.description_patient;  %> <% } %>
+                                                <% if(typeof bookings.scenario.message9 !== 'undefined') { %> <% patientMessage9 = bookings.scenario.message9.description_patient;  %> <% } %>
+                                                <% if(typeof bookings.scenario.message10 !== 'undefined') { %> <% patientMessage10 = bookings.scenario.message10.description_patient;  %> <% } %>
+                                                <% if(typeof bookings.scenario.message11 !== 'undefined') { %> <% patientMessage11 = bookings.scenario.message11.description_patient;  %> <% } %>
+                                                <% if(typeof bookings.scenario.message12 !== 'undefined') { %> <% patientMessage12 = bookings.scenario.message12.description_patient;  %> <% } %>
+                                                <% if(typeof bookings.scenario.message1 !== 'undefined') { %> <% date1 = moment(bookings.scenario.message1.createdAt).format( 'MMM DD, YYYY hh:mm A'); %> <% } %>
+                                                <% if(typeof bookings.scenario.message2 !== 'undefined') { %> <% date2 = moment(bookings.scenario.message2.createdAt).format( 'MMM DD, YYYY hh:mm A');  %> <% } %>
+                                                <% if(typeof bookings.scenario.message3 !== 'undefined') { %> <% date3 = moment(bookings.scenario.message3.createdAt).format( 'MMM DD, YYYY hh:mm A');  %> <% } %>
+                                                <% if(typeof bookings.scenario.message4 !== 'undefined') { %> <% date4 = moment(bookings.scenario.message4.createdAt).format( 'MMM DD, YYYY hh:mm A');  %> <% } %>
+                                                <% if(typeof bookings.scenario.message5 !== 'undefined') { %> <% date5 = moment(bookings.scenario.message5.createdAt).format( 'MMM DD, YYYY hh:mm A');  %> <% } %>
+                                                <% if(typeof bookings.scenario.message6 !== 'undefined') { %> <% date6 = moment(bookings.scenario.message6.createdAt).format( 'MMM DD, YYYY hh:mm A');  %> <% } %>
+                                                <% if(typeof bookings.scenario.message7 !== 'undefined') { %> <% date7 = moment(bookings.scenario.message7.createdAt).format( 'MMM DD, YYYY hh:mm A');  %> <% } %>
+                                                <% if(typeof bookings.scenario.message8 !== 'undefined') { %> <% date8 = moment(bookings.scenario.message8.createdAt).format( 'MMM DD, YYYY hh:mm A');  %> <% } %>
+                                                <% if(typeof bookings.scenario.message9 !== 'undefined') { %> <% date9 = moment(bookings.scenario.message9.createdAt).format( 'MMM DD, YYYY hh:mm A');  %> <% } %>
+                                                <% if(typeof bookings.scenario.message10 !== 'undefined') { %> <% date10 = moment(bookings.scenario.message10.createdAt).format( 'MMM DD, YYYY hh:mm A');  %> <% } %>
+                                                <% if(typeof bookings.scenario.message11 !== 'undefined') { %> <% date11 = moment(bookings.scenario.message11.createdAt).format( 'MMM DD, YYYY hh:mm A');  %> <% } %>
+                                                <% if(typeof bookings.scenario.message12 !== 'undefined') { %> <% date12 = moment(bookings.scenario.message12.createdAt).format( 'MMM DD, YYYY hh:mm A');  %> <% } %>
+                                                <%
+                                                var reviewStarCount = "";
+                                                var reviewMessage = "";
+                                                %>
+                                                <%
+                                                if(typeof bookings.reviewID !== 'undefined') {
+                                                    reviewStarCount = bookings.reviewID.starCount;
+                                                    if(typeof bookings.reviewID.message !== 'undefined') {
+                                                        reviewMessage = bookings.reviewID.message;
+                                                    }
+                                                }
+                                                %>
+                                                <%
+                                                var mainComplaint = "";
+                                                var historyAndAssessment = "";
+                                                var plan = "";
+                                                var medication = "";
+                                                var watchOutFor = "";
+                                                %>
+                                                <%
+                                                if(typeof bookings.reportID !== 'undefined') {
+                                                    mainComplaint = bookings.reportID.mainComplaint;
+                                                    historyAndAssessment = bookings.reportID.historyAndAssessment;
+                                                    plan = bookings.reportID.plan;
+                                                    medication = bookings.reportID.medication;
+                                                    watchOutFor = bookings.reportID.watchOutFor;
+                                                }
+                                                %>
+                                                <%
+                                                var lat = "";
+                                                var lng = "";
+                                                %>
+                                                <%
+                                                if(typeof bookings.specialistLocation !== 'undefined') {
+                                                    var lat = bookings.specialistLocation.lat;
+                                                    var lng = bookings.specialistLocation.lng;
+                                                }
+                                                %>
+                                                <td><a href="#" onclick="openLocation('<%= lat %>', '<%= lng %>')">Specialist Location</a> | <a href="#" onclick="openConversation('<%= bookings.patientID.firstName %> <%= bookings.patientID.middleName.charAt(0) %>. <%= bookings.patientID.lastName %> (Patient)', '<%= bookings.specialistID.firstName %> <%= bookings.specialistID.middleName.charAt(0) %>. <%= bookings.specialistID.lastName %> (Specialist)', '<%= specialistMessage1 %>', '<%= specialistMessage2 %>', '<%= specialistMessage3 %>', '<%= specialistMessage4 %>', '<%= specialistMessage5 %>', '<%= specialistMessage6 %>', '<%= specialistMessage7 %>', '<%= specialistMessage8 %>', '<%= specialistMessage9 %>', '<%= specialistMessage10 %>', '<%= specialistMessage11 %>', '<%= specialistMessage12 %>','<%= patientMessage1 %>', '<%= patientMessage2 %>', '<%= patientMessage3 %>', '<%= patientMessage4 %>', '<%= patientMessage5 %>', '<%= patientMessage6 %>', '<%= patientMessage7 %>', '<%= patientMessage8 %>', '<%= patientMessage9 %>', '<%= patientMessage10 %>', '<%= patientMessage11 %>', '<%= patientMessage12 %>','<%= date1 %>', '<%= date2 %>', '<%= date3 %>', '<%= date4 %>', '<%= date5 %>', '<%= date6 %>', '<%= date7 %>', '<%= date8 %>', '<%= date9 %>', '<%= date10 %>', '<%= date11 %>', '<%= date12 %>')">Conversation</a> | <a href="#" onclick="openRating('<%= reviewStarCount %>','<%= reviewMessage %>')">Patient Rating</a> | <a href="#" onclick="openReport('<%= mainComplaint %>','<%= historyAndAssessment %>','<%= plan %>','<%= medication %>','<%= watchOutFor %>')">Specialist Report</a></td>
+                                            </tr>
+                                            <% }) %>
+                                        </tbody>
+                                    </table>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+    </div>
+</div>
+
+
+<div class="modal fade" id="conversation" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"
+    aria-hidden="true">
+    <div class="modal-dialog modal-lg" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="exampleModalLabel">Booking Conversation</h5>
+                <a href="#" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </a>
+            </div>
+            <div class="modal-body">
+                <div class="row">
+                    <div class="col-xl-6 col-lg-12 col-md-12 col-sm-6 col-12">
+                            <h3 id="patient-name">Patient</h3>
+                            <span id="patient-message-1"></span><span id="date-1" style="font-size: 10px; font-style: italic;"></span>
+                            <span id="patient-message-2"></span><span id="date-2" style="font-size: 10px; font-style: italic;"></span>
+                            <span id="patient-message-3"></span><span id="date-3" style="font-size: 10px; font-style: italic;"></span>
+                            <span id="patient-message-4"></span><span id="date-4" style="font-size: 10px; font-style: italic;"></span>
+                            <span id="patient-message-5"></span><span id="date-5" style="font-size: 10px; font-style: italic;"></span>
+                            <span id="patient-message-6"></span><span id="date-6" style="font-size: 10px; font-style: italic;"></span>
+                            <span id="patient-message-7"></span><span id="date-7" style="font-size: 10px; font-style: italic;"></span>
+                            <span id="patient-message-8"></span><span id="date-8" style="font-size: 10px; font-style: italic;"></span>
+                            <span id="patient-message-9"></span><span id="date-9" style="font-size: 10px; font-style: italic;"></span>
+                            <span id="patient-message-10"></span><span id="date-10" style="font-size: 10px; font-style: italic;"></span>
+                            <span id="patient-message-11"></span><span id="date-11" style="font-size: 10px; font-style: italic;"></span>
+                            <span id="patient-message-12"></span><span id="date-12" style="font-size: 10px; font-style: italic;"></span>
+                    </div>
+                    <div class="col-xl-6 col-lg-12 col-md-12 col-sm-6 col-12">
+                            <h3 id="specialist-name">Specialist</h3>
+                            <span id="specialist-message-1"></span><span id="s-date-1" style="font-size: 10px; font-style: italic;"></span>
+                            <span id="specialist-message-2"></span><span id="s-date-2" style="font-size: 10px; font-style: italic;"></span>
+                            <span id="specialist-message-3"></span><span id="s-date-3" style="font-size: 10px; font-style: italic;"></span>
+                            <span id="specialist-message-4"></span><span id="s-date-4" style="font-size: 10px; font-style: italic;"></span>
+                            <span id="specialist-message-5"></span><span id="s-date-5" style="font-size: 10px; font-style: italic;"></span>
+                            <span id="specialist-message-6"></span><span id="s-date-6" style="font-size: 10px; font-style: italic;"></span>
+                            <span id="specialist-message-7"></span><span id="s-date-7" style="font-size: 10px; font-style: italic;"></span>
+                            <span id="specialist-message-8"></span><span id="s-date-8" style="font-size: 10px; font-style: italic;"></span>
+                            <span id="specialist-message-9"></span><span id="s-date-9" style="font-size: 10px; font-style: italic;"></span>
+                            <span id="specialist-message-10"></span><span id="s-date-10" style="font-size: 10px; font-style: italic;"></span>
+                            <span id="specialist-message-11"></span><span id="s-date-11" style="font-size: 10px; font-style: italic;"></span>
+                            <span id="specialist-message-12"></span><span id="s-date-12" style="font-size: 10px; font-style: italic;"></span>
+                    </div>
+                </div>
+            </div>
+            <div class="modal-footer">
+                <a href="#" class="btn btn-secondary" data-dismiss="modal">Close</a>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="modal fade" id="rating" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"
+    aria-hidden="true">
+    <div class="modal-dialog modal-sm" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="exampleModalLabel">Patient Rating</h5>
+                <a href="#" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </a>
+            </div>
+            <div class="modal-body">
+                <div class="row">
+                    <div class="col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12">
+                        <h3 id="patient-rating-count" style="text-align: center;"></h3>
+                        <span id="patient-rating-message"></span>
+                    </div>
+                </div>
+            </div>
+            <div class="modal-footer">
+                <a href="#" class="btn btn-secondary" data-dismiss="modal">Close</a>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="modal fade" id="report" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"
+    aria-hidden="true">
+    <div class="modal-dialog modal-md" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="exampleModalLabel">Specialist Report</h5>
+                <a href="#" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </a>
+            </div>
+            <div class="modal-body">
+                <div class="row">
+                    <div class="col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12">
+                        <h4>Main complaint</h4>
+                        <span id="main-complaint"></span>
+
+                        <h4>History and assessment</h4>
+                        <span id="history-and-assessment"></span>
+
+                        <h4>Plan</h4>
+                        <span id="plan"></span>
+
+                        <h4>Medication</h4>
+                        <span id="medication"></span>
+
+                        <h4>Watch out for</h4>
+                        <span id="watch-out-for"></span>
+                    </div>
+                </div>
+            </div>
+            <div class="modal-footer">
+                <a href="#" class="btn btn-secondary" data-dismiss="modal">Close</a>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="modal fade" id="location" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"
+    aria-hidden="true">
+    <div class="modal-dialog modal-lg" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="exampleModalLabel">Specialist Location</h5>
+                <a href="#" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </a>
+            </div>
+            <div class="modal-body">
+                <span id="map"></span>
+            </div>
+            <div class="modal-footer">
+                <a href="#" class="btn btn-secondary" data-dismiss="modal">Close</a>
+            </div>
+        </div>
+    </div>
+</div>
+
+<% include ../../partials/profile/topFooter %>
+<% include ../../partials/profile/middleFooter %>
+
+<script>
+    function openConversation(patientName, specialistName, specialistConversation1, specialistConversation2, specialistConversation3, specialistConversation4, specialistConversation5, specialistConversation6, specialistConversation7, specialistConversation8, specialistConversation9, specialistConversation10, specialistConversation11, specialistConversation12, patientConversation1, patientConversation2, patientConversation3, patientConversation4, patientConversation5, patientConversation6, patientConversation7, patientConversation8, patientConversation9, patientConversation10, patientConversation11, patientConversation12, date1, date2, date3, date4, date5, date6, date7, date8, date9, date10, date11, date12) {
+        $('#conversation').modal('show');
+
+        $('#patient-name').html(patientName);
+        $('#specialist-name').html(specialistName);
+
+        if(patientConversation1 != "" && patientConversation1 != "" && date1 != "") {
+            $('#patient-message-1').html(patientConversation1 + "</br>");
+        }
+
+        if(patientConversation2 != "" && patientConversation2 != "" && date2 != "") {
+            $('#patient-message-2').html(patientConversation2 + "</br>");
+        }
+
+        if(patientConversation3 != "" && patientConversation3 != "" && date3 != "") {
+            $('#patient-message-3').html(patientConversation3 + "</br>");
+        }
+
+        if(patientConversation4 != "" && patientConversation4 != "" && date4 != "") {
+            $('#patient-message-4').html(patientConversation4 + "</br>");
+        }
+
+        if(patientConversation5 != "" && patientConversation5 != "" && date5 != "") {
+            $('#patient-message-5').html(patientConversation5 + "</br>");
+        }
+
+        if(patientConversation6 != "" && patientConversation6 != "" && date6 != "") {
+            $('#patient-message-6').html(patientConversation6 + "</br>");
+        }
+
+        if(patientConversation7 != "" && patientConversation7 != "" && date7 != "") {
+            $('#patient-message-7').html(patientConversation7 + "</br>");
+        }
+
+        if(patientConversation8 != "" && patientConversation8 != "" && date8 != "") {
+            $('#patient-message-8').html(patientConversation8 + "</br>");
+        }
+
+        if(patientConversation9 != "" && patientConversation9 != "" && date9 != "") {
+            $('#patient-message-9').html(patientConversation9 + "</br>");
+        }
+
+        if(patientConversation10 != "" && patientConversation10 != "" && date10 != "") {
+            $('#patient-message-10').html(patientConversation10 + "</br>");
+        }
+
+        if(patientConversation11 != "" && patientConversation11 != "" && date11 != "") {
+            $('#patient-message-11').html(patientConversation11 + "</br>");
+        }
+
+        if(patientConversation12 != "" && patientConversation12 != "" && date12 != "") {
+            $('#patient-message-12').html(patientConversation12);
+        }
+
+
+        if(specialistConversation1 != "" && specialistConversation1 != "" && date1 != "") {
+            $('#specialist-message-1').html(specialistConversation1 + "</br>");
+        }
+
+        if(specialistConversation2 != "" && specialistConversation2 != "" && date2 != "") {
+            $('#specialist-message-2').html(specialistConversation2 + "</br>");
+        }
+
+        if(specialistConversation3 != "" && specialistConversation3 != "" && date3 != "") {
+            $('#specialist-message-3').html(specialistConversation3 + "</br>");
+        }
+
+        if(specialistConversation4 != "" && specialistConversation4 != "" && date4 != "") {
+            $('#specialist-message-4').html(specialistConversation4 + "</br>");
+        }
+
+        if(specialistConversation5 != "" && specialistConversation5 != "" && date5 != "") {
+            $('#specialist-message-5').html(specialistConversation5 + "</br>");
+        }
+
+        if(specialistConversation6 != "" && specialistConversation6 != "" && date6 != "") {
+            $('#specialist-message-6').html(specialistConversation6 + "</br>");
+        }
+
+        if(specialistConversation7 != "" && specialistConversation7 != "" && date7 != "") {
+            $('#specialist-message-7').html(specialistConversation7 + "</br>");
+        }
+
+        if(specialistConversation8 != "" && specialistConversation8 != "" && date8 != "") {
+            $('#specialist-message-8').html(specialistConversation8 + "</br>");
+        }
+
+        if(specialistConversation9 != "" && specialistConversation9 != "" && date9 != "") {
+            $('#specialist-message-9').html(specialistConversation9 + "</br>");
+        }
+
+        if(specialistConversation10 != "" && specialistConversation10 != "" && date10 != "") {
+            $('#specialist-message-10').html(specialistConversation10 + "</br>");
+        }
+
+        if(specialistConversation11 != "" && specialistConversation11 != "" && date11 != "") {
+            $('#specialist-message-11').html(specialistConversation11 + "</br>");
+        }
+        
+        if(specialistConversation12 != "" && specialistConversation12 != "" && date12 != "") {
+            $('#specialist-message-12').html(specialistConversation12);
+        }
+
+
+        if(specialistConversation1 != "" && specialistConversation1 != "" && date1 != "") {
+            $('#date-1').html(date1 + "</br></br>");
+        }
+
+        if(specialistConversation2 != "" && specialistConversation2 != "" && date2 != "") {
+            $('#date-2').html(date2 + "</br></br>");
+        }
+
+        if(specialistConversation3 != "" && specialistConversation3 != "" && date3 != "") {
+            $('#date-3').html(date3 + "</br></br>");
+        }
+
+        if(specialistConversation4 != "" && specialistConversation4 != "" && date4 != "") {
+            $('#date-4').html(date4 + "</br></br>");
+        }
+
+        if(specialistConversation5 != "" && specialistConversation5 != "" && date5 != "") {
+            $('#date-5').html(date5 + "</br></br>");
+        }
+
+        if(specialistConversation6 != "" && specialistConversation6 != "" && date6 != "") {
+            $('#date-6').html(date6 + "</br></br>");
+        }
+
+        if(specialistConversation7 != "" && specialistConversation7 != "" && date7 != "") {
+            $('#date-7').html(date7 + "</br></br>");
+        }
+
+        if(specialistConversation8 != "" && specialistConversation8 != "" && date8 != "") {
+            $('#date-8').html(date8 + "</br></br>");
+        }
+
+        if(specialistConversation9 != "" && specialistConversation9 != "" && date9 != "") {
+            $('#date-9').html(date9 + "</br></br>");
+        }
+
+        if(specialistConversation10 != "" && specialistConversation10 != "" && date10 != "") {
+            $('#date-10').html(date10 + "</br></br>");
+        }
+
+        if(specialistConversation11 != "" && specialistConversation11 != "" && date11 != "") {
+            $('#date-11').html(date11 + "</br></br>");
+        }
+        
+        if(specialistConversation12 != "" && specialistConversation12 != "" && date12 != "") {
+            $('#date-12').html(date12);
+        }
+
+        if(specialistConversation1 != "" && specialistConversation1 != "" && date1 != "") {
+            $('#s-date-1').html(date1 + "</br></br>");
+        }
+
+        if(specialistConversation2 != "" && specialistConversation2 != "" && date2 != "") {
+            $('#s-date-2').html(date2 + "</br></br>");
+        }
+
+        if(specialistConversation3 != "" && specialistConversation3 != "" && date3 != "") {
+            $('#s-date-3').html(date3 + "</br></br>");
+        }
+
+        if(specialistConversation4 != "" && specialistConversation4 != "" && date4 != "") {
+            $('#s-date-4').html(date4 + "</br></br>");
+        }
+
+        if(specialistConversation5 != "" && specialistConversation5 != "" && date5 != "") {
+            $('#s-date-5').html(date5 + "</br></br>");
+        }
+
+        if(specialistConversation6 != "" && specialistConversation6 != "" && date6 != "") {
+            $('#s-date-6').html(date6 + "</br></br>");
+        }
+
+        if(specialistConversation7 != "" && specialistConversation7 != "" && date7 != "") {
+            $('#s-date-7').html(date7 + "</br></br>");
+        }
+
+        if(specialistConversation8 != "" && specialistConversation8 != "" && date8 != "") {
+            $('#s-date-8').html(date8 + "</br></br>");
+        }
+
+        if(specialistConversation9 != "" && specialistConversation9 != "" && date9 != "") {
+            $('#s-date-9').html(date9 + "</br></br>");
+        }
+
+        if(specialistConversation10 != "" && specialistConversation10 != "" && date10 != "") {
+            $('#s-date-10').html(date10 + "</br></br>");
+        }
+
+        if(specialistConversation11 != "" && specialistConversation11 != "" && date11 != "") {
+            $('#s-date-11').html(date11 + "</br></br>");
+        }
+        
+        if(specialistConversation12 != "" && specialistConversation12 != "" && date12 != "") {
+            $('#s-date-12').html(date12);
+        }
+
+    }
+    function openRating(ratingCount, ratingMessage) {
+        $('#rating').modal('show');
+
+        if(ratingCount != "") {
+            $('#patient-rating-count').show();
+            $('#patient-rating-count').html(ratingCount);
+            $('#patient-rating-message').html('<p style="text-align: center;">'+ratingMessage+'</p>');
+        } else {
+            $('#patient-rating-count').hide();
+            $('#patient-rating-message').html('<span style="font-style: italic; text-align: center;">Empty</span>');
+        }
+    }
+
+    function openReport(mainComplaint, historyAndAssessment, plan, medication, watchOutFor) {
+        $('#report').modal('show');
+
+        if(mainComplaint != "") {
+            $('#main-complaint').html(mainComplaint + "</br></br>");
+            $('#history-and-assessment').html(historyAndAssessment + "</br></br>");
+            $('#plan').html(plan + "</br></br>");
+            $('#medication').html(medication + "</br></br>");
+            $('#watch-out-for').html(watchOutFor + "</br></br>");
+        } else {
+            $('#main-complaint').html("<span style='font-style: italic;'>Empty</span></br></br>");
+            $('#history-and-assessment').html("<span style='font-style: italic;'>Empty</span></br></br>");
+            $('#plan').html("<span style='font-style: italic;'>Empty</span></br></br>");
+            $('#medication').html("<span style='font-style: italic;'>Empty</span></br></br>");
+            $('#watch-out-for').html("<span style='font-style: italic;'>Empty</span></br></br>");
+        }
+    }
+
+    function openLocation(lat, lng) {
+        $('#location').modal('show');
+        if(lat != "" && lng != "") {
+            $('#map').html('<div id="googleMap" style="width:100%;height:400px;"></div>');
+            var mapProp= {
+                center:new google.maps.LatLng(lat,lng),
+                zoom:9,
+            };
+            var marker = new google.maps.Marker({
+                position: new google.maps.LatLng(lat,lng)
+            });
+            var map = new google.maps.Map(document.getElementById("googleMap"),mapProp);
+            marker.setMap(map);
+        } else {
+            $('#map').html("<span style='font-style: italic;'>No coordinates found.</span></br></br>");
+        }
+    }
+
+    $('#filter').on('change', function() {
+        window.location.href = '/profile/booking-history/'+this.value;
+    });
+
+    $(function () {
+        $('#datetimepicker').datetimepicker({
+            format: 'L'
+        });
+    });
+
+</script>
+<script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyC3XLLDfOfZurzrWL-QRFmNYjTLR0DfsFg&callback=googleMap"></script>
+
+<% include ../../partials/profile/bottomFooter %>

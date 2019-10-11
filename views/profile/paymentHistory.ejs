@@ -1,0 +1,92 @@
+<% include ../partials/profile/header %>
+<% include ../partials/profile/navbar %>
+<% include ../partials/profile/sidebar %>
+
+<div class="dashboard-ecommerce">
+    <div class="container-fluid dashboard-content ">
+        <!-- ============================================================== -->
+        <!-- pageheader  -->
+        <!-- ============================================================== -->
+        <div class="row">
+            <div class="col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12">
+                <div class="page-header">
+                    <h2 class="pageheader-title"><%= pageName %> </h2>
+                    <div class="page-breadcrumb">
+                        <nav aria-label="breadcrumb">
+                            <ol class="breadcrumb">
+                                <li class="breadcrumb-item"><a href="/profile/payment-history"
+                                        class="breadcrumb-link"><%= pageName %></a></li>
+                            </ol>
+                        </nav>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <!-- ============================================================== -->
+        <!-- end pageheader  -->
+        <!-- ============================================================== -->
+        <div class="ecommerce-widget">
+            <div class="row">
+                <div class="col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12">
+                    <div class="card">
+                        <div class="card-body">
+                            <div class="form-group">
+                                <select class="form-control form-control-md" id="filter">
+                                    <option value="all">-- Filter (Default All) --</option>
+                                    <option value="today" <% if(filter == 'today') { %>selected<% } %>>Last 24 Hours</option>
+                                    <option value="week" <% if(filter == 'week') { %>selected<% } %>>Last 7 Days</option>
+                                    <option value="month" <% if(filter == 'month') { %>selected<% } %>>Last 30 Days</option>
+                                </select>
+                            </div></br>
+                            <div id="payment-history-list">
+                                <table class="table table-bordered">
+                                    <thead>
+                                        <tr>
+                                            <th scope="col">#</th>
+                                            <th scope="col">Specialist</th>
+                                            <th scope="col">Patient</th>
+                                            <th scope="col">Date</th>
+                                            <th scope="col">Stripe Charge ID</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <% var counter = 0; %>
+                                        <% paymentHistory.forEach(function(paymentHistory) { %>
+                                        <% counter++; %>
+                                        <tr>
+                                            <th scope="row"><%= counter %></th>
+                                            <td><%= paymentHistory.specialistID.firstName %> <%= paymentHistory.specialistID.middleName.charAt(0) %>. <%= paymentHistory.specialistID.lastName %></td>
+                                            <td><%= paymentHistory.patientID.firstName %> <%= paymentHistory.patientID.middleName.charAt(0) %>. <%= paymentHistory.patientID.lastName %></td>
+                                            <td><%= moment(paymentHistory.payment.createdAt).format( 'MMM DD, YYYY hh:mm A') %></td>
+                                            <td><%= paymentHistory.payment.chargeID %></td>
+                                        </tr>
+                                        <% }) %>
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<% include ../partials/profile/topFooter %>
+<% include ../partials/profile/middleFooter %>
+
+<script>
+    $('#filter').on('change', function() {
+        window.location.href = '/profile/payment-history/'+this.value;
+    });
+    $(function () {
+        $('#datetimepicker').datetimepicker({
+            format: 'L'
+        });
+    });
+</script>
+
+<!-- <script src="/operator/profile/paymentHistory/search.js"></script> -->
+
+
+<% include ../partials/profile/bottomFooter %>

@@ -1,0 +1,305 @@
+<% include ../../partials/profile/header %>
+<% include ../../partials/profile/navbar %>
+<% include ../../partials/profile/sidebar %>
+
+<div class="dashboard-ecommerce">
+    <div class="container-fluid dashboard-content ">
+        <!-- ============================================================== -->
+        <!-- pageheader  -->
+        <!-- ============================================================== -->
+        <div class="row">
+            <div class="col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12">
+                <div class="page-header">
+                    <h2 class="pageheader-title"><%= pageName %> </h2>
+                    <div class="page-breadcrumb">
+                        <nav aria-label="breadcrumb">
+                            <ol class="breadcrumb">
+                                <li class="breadcrumb-item"><a href="/profile/patient/lists"
+                                        class="breadcrumb-link"><%= pageName %></a></li>
+                            </ol>
+                        </nav>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <!-- ============================================================== -->
+        <!-- end pageheader  -->
+        <!-- ============================================================== -->
+        <div class="ecommerce-widget">
+            <div class="row">
+                <div class="col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12">
+                    <div class="card">
+                        <div class="card-body">
+                            <div class="input-group mb-3">
+                                <input type="text" class="form-control form-control-md" id="search" placeholder="Search name, username or email..." value="<%= filter %>">
+                                <div class="input-group-append">
+                                    <button type="button" class="btn btn-primary" onclick="search()"><i class="fas fa-search"></i></button>
+                                </div>
+                            </div>
+                            <div id="payment-history-list">
+                                <table class="table table-bordered">
+                                    <thead>
+                                        <tr>
+                                            <th scope="col">#</th>
+                                            <th scope="col">Full Name</th>
+                                            <th scope="col">Username</th>
+                                            <th scope="col">Email</th>
+                                            <th scope="col">Gender</th>
+                                            <th scope="col">Birth Date</th>
+                                            <th scope="col">Date Created</th>
+                                            <th scope="col">Actions</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <% var counter = 0; %>
+                                        <% patient.forEach(function(patient) { %>
+                                        <% counter++; %>
+                                        <tr>
+                                            <th scope="row"><%= counter %></th>
+                                            <td><%= patient.firstName %> <%= patient.middleName.charAt(0) %>. <%= patient.lastName %></td>
+                                            <td><%= patient.username %></td>
+                                            <td><%= patient.email %></td>
+                                            <td><%= patient.gender %></td>
+                                            <td><%= moment(patient.birthDate).format( 'MMM DD, YYYY') %></td>
+                                            <td><%= moment(patient.createdAt).format( 'MMM DD, YYYY hh:mm A') %></td>
+                                            <% 
+                                            var passportURL = "";
+                                            var passportID = "";  
+                                            var emiratesURL = "";
+                                            var emiratesID = "";  
+                                            var insuranceURL = "";
+                                            var insuranceID = "";  
+                                            %>
+                                            <%
+                                            if(typeof patient.identification !== 'undefined') {
+                                                if(typeof patient.identification.emirates !== 'undefined') {
+                                                    emiratesURL = patient.identification.emirates.url;
+                                                    emiratesID = patient.identification.emirates.number;  
+                                                }
+                                                if(typeof patient.identification.insurance !== 'undefined') {
+                                                    insuranceURL = patient.identification.insurance.url;
+                                                    insuranceID = patient.identification.insurance.number;  
+                                                }
+                                                if(typeof patient.identification.passport !== 'undefined') {
+                                                    passportURL = patient.identification.passport.url;
+                                                    passportID = patient.identification.passport.number;  
+                                                }
+                                            }
+                                            %>
+                                            <%
+                                            var dateBirth = "";
+                                            dateBirth = moment(patient.birthDate).format( 'MM/DD/YYYY');
+                                            %>
+                                            <td><a href="/profile/patient/family-members/<%= patient._id %>">Family Members</a> | <a href="/profile/patient/booking-addresses/<%= patient._id %>">Booking Addresses</a> | <a href="/profile/patient/bookings/<%= patient._id %>">Bookings</a> | <a href="#" onclick="openIdentification('<%= passportURL %>','<%= passportID %>','<%= emiratesURL %>','<%= emiratesID %>','<%= insuranceURL %>','<%= insuranceID %>')">View I.D's</a> | <a href="#" onclick="openEditPatient('<%= patient._id %>','<%= patient.firstName %>','<%= patient.middleName %>','<%= patient.lastName %>','<%= patient.email %>','<%= patient.username %>','<%= patient.password %>','<%= patient.gender %>','<%= dateBirth %>')">Edit</a> | <% if(typeof patient.blockedAt == 'undefined') { %><a href="#" onclick="openBlock('<%= patient._id %>', 'block')">Block</a> <% } else { %><a href="#" onclick="openBlock('<%= patient._id %>', 'unblock')">Unblock</a><% } %></td>
+                                        </tr>
+                                        <% }) %>
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<% include ../../partials/profile/topFooter %>
+<% include ../../partials/profile/middleFooter %>
+
+<div class="modal fade" id="indentification" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"
+    aria-hidden="true">
+    <div class="modal-dialog modal-lg" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="exampleModalLabel">Indentification</h5>
+                <a href="#" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </a>
+            </div>
+            <div class="modal-body">
+                <div class="row">
+                    <div class="col-xl-4 col-lg-12 col-md-12 col-sm-4 col-12">
+                            <h3>Passport</h3>
+                            <span id="passport-image"></span>
+                            <span id="passport-id"></span>
+                    </div>
+                    <div class="col-xl-4 col-lg-12 col-md-12 col-sm-4 col-12">
+                            <h3>Emirates</h3>
+                            <span id="emirates-image"></span>
+                            <span id="emirates-id"></span>
+                    </div>
+                    <div class="col-xl-4 col-lg-12 col-md-12 col-sm-4 col-12">
+                            <h3>Insurance</h3>
+                            <span id="insurance-image"></span>
+                            <span id="insurance-id"></span>
+                    </div>
+                </div>
+            </div>
+            <div class="modal-footer">
+                <a href="#" class="btn btn-secondary" data-dismiss="modal">Close</a>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="modal fade" id="block" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"
+    aria-hidden="true">
+    <div class="modal-dialog modal-sm" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="exampleModalLabel">Block Patient</h5>
+                <a href="#" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </a>
+            </div>
+            <div class="modal-body">
+                <input type="hidden" id="delete-patient-id" />
+                <input type="hidden" id="delete-patient-status" />
+                <% include ../../partials/message1 %>
+                <p>Are you sure with this?</p>
+            </div>
+            <div class="modal-footer">
+                <button class="btn btn-secondary" data-dismiss="modal">Close</button>
+                <button class="btn btn-primary" id="submit-button" onclick="blockPatient()">Yes</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="modal fade" id="edit" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"
+    aria-hidden="true">
+    <div class="modal-dialog modal-sm" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="exampleModalLabel">Edit Patient</h5>
+                <a href="#" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </a>
+            </div>
+            <div class="modal-body">
+                <input type="hidden" id="edit-patient-id" />
+                <form>
+                    <% include ../../partials/message2 %>
+                    <div class="form-group">
+                        <label for="otherRequest">First Name</label>
+                        <input class="form-control form-control-md" type="text" id="edit-first-name"
+                            placeholder="">
+                    </div>
+                    <div class="form-group">
+                        <label for="otherRequest">Middle Name</label>
+                        <input class="form-control form-control-md" type="text" id="edit-middle-name"
+                            placeholder="">
+                    </div>
+                    <div class="form-group">
+                        <label for="otherRequest">Last Name</label>
+                        <input class="form-control form-control-md" type="text" id="edit-last-name"
+                            placeholder="">
+                    </div>
+                    <div class="form-group">
+                        <label for="otherRequest">Email</label>
+                        <input class="form-control form-control-md" type="email" id="edit-email"
+                            placeholder="">
+                    </div>
+                    <div class="form-group">
+                        <label for="otherRequest">Username</label>
+                        <input class="form-control form-control-md" type="text" id="edit-username"
+                            placeholder="">
+                    </div>
+                    <div class="form-group">
+                        <label for="otherRequest">Password</label>
+                        <input class="form-control form-control-md" type="password" id="edit-password"
+                            placeholder="">
+                    </div>
+                    <div class="form-group">
+                        <label for="category">Gender</label>
+                        <select class="form-control form-control-md" id="edit-gender">
+                            <option>-- Select --</option>
+                            <option>Male</option>
+                            <option>Female</option>
+                        </select>
+                    </div>
+                    <div class="form-group">
+                        <label for="datetimepicker">Birth Date</label>
+                        <input type="text" class="form-control form-control-md datetimepicker-input"
+                            id="datetimepicker" data-toggle="datetimepicker"
+                            data-target="#datetimepicker" autocomplete="off" />
+                    </div>
+                </form>
+            </div>
+            <div class="modal-footer">
+                <button class="btn btn-secondary" data-dismiss="modal">Close</button>
+                <button class="btn btn-primary" id="edit-button" onclick="editPatient()">Update</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+<script>
+    function openIdentification(passportURL, passportID, emiratesURL, emiratesID, insuranceURL, insuranceID) {
+        $('#indentification').modal('show');
+
+        if(passportURL != "") {
+            $('#passport-image').html('<img src="http://localhost:5000/uploads/'+passportURL+'" class="img-fluid" /></br></br>');
+            $('#passport-id').html('Number: ' + passportID + '</br></br>');
+        } else {
+            $('#passport-image').html('No data found.');
+            $('#passport-id').html('');
+        }
+
+        if(emiratesURL != "") {
+            $('#emirates-image').html('<img src="http://localhost:5000/uploads/'+emiratesURL+'" class="img-fluid" /></br></br>');
+            $('#emirates-id').html('Number: ' + emiratesID + '</br></br>');
+        } else {
+            $('#emirates-image').html('No data found.');
+            $('#emirates-id').html('');
+        }
+
+        if(insuranceURL != "") {
+            $('#insurance-image').html('<img src="http://localhost:5000/uploads/'+insuranceURL+'" class="img-fluid" /></br></br>');
+            $('#insurance-id').html('Number: ' + insuranceID + '</br></br>');
+        }else {
+            $('#insurance-image').html('No data found.');
+            $('#insurance-id').html('');
+        }
+
+    }
+    function openBlock(patientID, status) {
+        $('#block').modal('show');
+        $('#delete-patient-id').val(patientID);
+        $('#delete-patient-status').val(status);
+    }
+    function openEditPatient(patientID, firstName, middleName, lastName, email, username, password, gender, birthDate) {
+        $('#edit').modal('show');
+        $('#edit-patient-id').val(patientID);
+        $('#edit-first-name').val(firstName);
+        $('#edit-middle-name').val(middleName);
+        $('#edit-last-name').val(lastName);
+        $('#edit-email').val(email);
+        $('#edit-username').val(username);
+        $('#edit-password').val(password);
+        $('#edit-gender').val(gender);
+        $('#datetimepicker').val(birthDate);
+    }
+    $("#search").on('keyup', function (e) {
+        if (e.keyCode === 13) {
+            // Do something
+            window.location.href = '/profile/patient/lists/'+this.value;
+        }
+    });
+    function search() {
+        var query = $('#search').val();
+        window.location.href = '/profile/patient/lists/'+query;
+    }
+    $(function () {
+        $('#datetimepicker').datetimepicker({
+            format: 'L'
+        });
+    });
+</script>
+
+<script src="/operator/profile/patient/block.js"></script>
+<script src="/operator/profile/patient/edit.js"></script>
+
+<% include ../../partials/profile/bottomFooter %>

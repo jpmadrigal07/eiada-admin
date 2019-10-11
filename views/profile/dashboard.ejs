@@ -1,0 +1,192 @@
+<% include ../partials/profile/header %>
+<% include ../partials/profile/navbar %>
+<% include ../partials/profile/sidebar %>
+
+<div class="dashboard-ecommerce">
+    <div class="container-fluid dashboard-content ">
+        <!-- ============================================================== -->
+        <!-- pageheader  -->
+        <!-- ============================================================== -->
+        <div class="row">
+            <div class="col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12">
+                <div class="page-header">
+                    <h2 class="pageheader-title"><%= pageName %> </h2>
+                    <div class="page-breadcrumb">
+                        <nav aria-label="breadcrumb">
+                            <ol class="breadcrumb">
+                                <li class="breadcrumb-item active" aria-current="page"><%= pageName %></li>
+                            </ol>
+                        </nav>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <!-- ============================================================== -->
+        <!-- end pageheader  -->
+        <!-- ============================================================== -->
+        <div class="row">
+            <!-- ============================================================== -->
+            <!-- four widgets   -->
+            <!-- ============================================================== -->
+            <!-- ============================================================== -->
+            <!-- total views   -->
+            <!-- ============================================================== -->
+            <div class="col-xl-4 col-lg-4 col-md-4 col-sm-12 col-12">
+                <div class="card">
+                    <div class="card-body">
+                        <div class="d-inline-block">
+                            <h5 class="text-muted">Registered Accounts</h5>
+                            <h2 class="mb-0" id="registered-accounts"> 0</h2>
+                        </div>
+                        <div class="float-right icon-circle-medium  icon-box-lg  bg-success-light mt-1">
+                            <i class="fas fa-user fa-fw fa-sm text-success"></i>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <!-- ============================================================== -->
+            <!-- end total views   -->
+            <!-- ============================================================== -->
+            <!-- ============================================================== -->
+            <!-- total followers   -->
+            <!-- ============================================================== -->
+            <div class="col-xl-4 col-lg-4 col-md-4 col-sm-12 col-12">
+                <div class="card">
+                    <div class="card-body">
+                        <div class="d-inline-block">
+                            <h5 class="text-muted">Online Specialists</h5>
+                            <h2 class="mb-0" id="online-specialist"> 0</h2>
+                        </div>
+                        <div class="float-right icon-circle-medium  icon-box-lg  bg-success-light mt-1">
+                            <i class="fas fa-circle fa-fw fa-sm text-success"></i>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <!-- ============================================================== -->
+            <!-- end total followers   -->
+            <!-- ============================================================== -->
+                        <!-- ============================================================== -->
+            <!-- total followers   -->
+            <!-- ============================================================== -->
+            <div class="col-xl-4 col-lg-4 col-md-4 col-sm-12 col-12">
+                <div class="card">
+                    <div class="card-body">
+                        <div class="d-inline-block">
+                            <h5 class="text-muted">Online Patients</h5>
+                            <h2 class="mb-0" id="online-patients"> 0</h2>
+                        </div>
+                        <div class="float-right icon-circle-medium icon-box-lg bg-success-light mt-1">
+                            <i class="fas fa-circle fa-fw fa-sm text-success"></i>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <!-- ============================================================== -->
+            <!-- end total followers   -->
+            <!-- ============================================================== -->
+            <!-- ============================================================== -->
+            <!-- total followers   -->
+            <!-- ============================================================== -->
+            <div class="col-xl-4 col-lg-4 col-md-4 col-sm-12 col-12">
+                <div class="card">
+                    <div class="card-body">
+                        <div class="d-inline-block">
+                            <h5 class="text-muted">Available Specialists Today</h5>
+                            <h2 class="mb-0" id="available-specialist-today"> 0</h2>
+                        </div>
+                        <div class="float-right icon-circle-medium  icon-box-lg  bg-success-light mt-1">
+                            <i class="fas fa-circle fa-fw fa-sm text-success"></i>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <!-- ============================================================== -->
+            <!-- end total followers   -->
+            <!-- ============================================================== -->
+            <!-- ============================================================== -->
+            <!-- partnerships   -->
+            <!-- ============================================================== -->
+            <div class="col-xl-4 col-lg-4 col-md-4 col-sm-12 col-12">
+                <div class="card">
+                    <div class="card-body">
+                        <div class="d-inline-block">
+                            <h5 class="text-muted">Active Booking</h5>
+                            <h2 class="mb-0" id="active-booking"> 0</h2>
+                        </div>
+                        <div class="float-right icon-circle-medium  icon-box-lg  bg-success-light mt-1">
+                            <i class="fas fa-address-book fa-fw fa-sm text-success"></i>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <!-- ============================================================== -->
+            <!-- end partnerships   -->
+            <!-- ============================================================== -->
+            <!-- ============================================================== -->
+            <!-- total earned   -->
+            <!-- ============================================================== -->
+            <div class="col-xl-4 col-lg-4 col-md-4 col-sm-12 col-12">
+                <div class="card">
+                    <div class="card-body">
+                        <div class="d-inline-block">
+                            <h5 class="text-muted">Last 7 days transaction</h5>
+                            <h2 class="mb-0" id="weekly-transaction"> 0</h2>
+                        </div>
+                        <div class="float-right icon-circle-medium  icon-box-lg  bg-success-light mt-1">
+                            <i class="fas fa-arrows-alt-h fa-fw fa-sm text-success"></i>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <!-- ============================================================== -->
+            <!-- end total earned   -->
+            <!-- ============================================================== -->
+                        <!-- ============================================================== -->
+            <!-- total earned   -->
+            <!-- ============================================================== -->
+            <div class="col-xl-4 col-lg-4 col-md-4 col-sm-12 col-12">
+                <div class="card">
+                    <div class="card-body">
+                        <div class="d-inline-block">
+                            <h5 class="text-muted">Last 30 days transaction</h5>
+                            <h2 class="mb-0" id="monthly-transaction"> 0</h2>
+                        </div>
+                        <div class="float-right icon-circle-medium  icon-box-lg  bg-success-light mt-1">
+                            <i class="fas fa-arrows-alt-h fa-fw fa-sm text-success"></i>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <!-- ============================================================== -->
+            <!-- end total earned   -->
+            <!-- ============================================================== -->
+                                    <!-- ============================================================== -->
+            <!-- total earned   -->
+            <!-- ============================================================== -->
+            <div class="col-xl-4 col-lg-4 col-md-4 col-sm-12 col-12">
+                    <div class="card">
+                        <div class="card-body">
+                            <div class="d-inline-block">
+                                <h5 class="text-muted">Pending Withdrawal Requests</h5>
+                                <h2 class="mb-0" id="pending-withdraw-requests"> 0</h2>
+                            </div>
+                            <div class="float-right icon-circle-medium  icon-box-lg  bg-success-light mt-1">
+                                <i class="fas  fa-clipboard fa-fw fa-sm text-success"></i>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <!-- ============================================================== -->
+                <!-- end total earned   -->
+                <!-- ============================================================== -->
+        </div>
+    </div>
+</div>
+
+<% include ../partials/profile/topFooter %>
+<% include ../partials/profile/middleFooter %>
+
+<script src="/operator/profile/dashboard/counter.js"></script>
+
+<% include ../partials/profile/bottomFooter %>
