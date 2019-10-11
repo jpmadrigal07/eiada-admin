@@ -20,13 +20,13 @@ const port = process.env.PORT || 3000;
 
 // REDIS SESSION STORAGE
 
-redisClient.on('error', (err) => {
-    console.log('Redis error: ', err);
-});
+// redisClient.on('error', (err) => {
+//     console.log('Redis error: ', err);
+// });
 
-redisClient.on('error', function (err) {
-    console.log('Something went wrong ' + err);
-});
+// redisClient.on('error', function (err) {
+//     console.log('Something went wrong ' + err);
+// });
 
 app.use(bodyParser.json({
 	limit: '50mb'
@@ -50,13 +50,17 @@ app.use(session({
 app.use("/", indexRoutes);
 app.use("/profile", profileRoutes);
 
-var server = http.createServer(app);
+// var server = http.createServer(app);
 
 // Reload code here
-reload(app).then(function (reloadReturned) {
-	server.listen(port, function () {
-		console.log("EIADA has Started in PORT 3000 http://localhost:3000/");
-	});
-}).catch(function (err) {
-	console.error('Reload could not start, could not start server/sample app', err)
-})
+// reload(app).then(function (reloadReturned) {
+// 	server.listen(port, function () {
+// 		console.log("EIADA has Started in PORT 3000 http://localhost:3000/");
+// 	});
+// }).catch(function (err) {
+// 	console.error('Reload could not start, could not start server/sample app', err)
+// })
+
+app.listen(port, function () {
+	console.log("EIADA has Started in PORT 3000 http://localhost:3000/");
+});
